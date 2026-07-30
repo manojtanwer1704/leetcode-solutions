@@ -1,0 +1,40 @@
+# 21. Merge Two Sorted Lists
+
+- **Language:** Python 3
+- **Data Structure:** Singly Linked List
+- **Algorithm:** Two Pointers (Iterative)
+- **Time Complexity:** O(N + M) — Where N and M are lengths of the two lists
+- **Space Complexity:** O(1) — Re-pointers existing nodes in-place
+
+## Key Takeaway
+Using a **Dummy Node** simplifies head reference tracking and avoids extra null-check conditions when building the merged list.
+
+## Solution Code
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution(object):
+    def mergeTwoLists(self, list1, list2):
+        dummy = ListNode()
+        curr = dummy
+        
+        while list1 and list2:
+            if list1.val > list2.val:
+                curr.next = list2
+                list2 = list2.next
+            else:
+                curr.next = list1
+                list1 = list1.next
+            curr = curr.next
+            
+        if list1:
+            curr.next = list1
+        else:
+            curr.next = list2
+            
+        return dummy.next
